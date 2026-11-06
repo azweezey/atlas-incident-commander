@@ -1,0 +1,24 @@
+{
+  "name": "atlas-incident-commander",
+  "private": true,
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "dev": "concurrently -k \"npm run dev -w server\" \"npm run dev -w web\"",
+    "test": "npm test -w server",
+    "start:server": "npm start -w server",
+    "start:web": "npm run dev -w web",
+    "build": "npm run build -w server && npm run build -w web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "overrides": {
+    "@x402/core": "2.28.0",
+    "@x402/evm": "2.28.0",
+    "@x402/fetch": "2.28.0",
+    "@x402/express": "2.28.0"
+  }
+}

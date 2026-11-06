@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.env
+server/.env
+server/data/
+server/data/*.jsonl
+server/.metal/
+media/*.mp4
+media/*.wav
+media/*.mp3
+media/*.raw.mp4
+media/final/
+media/music/
+media/voiceover/
