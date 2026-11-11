@@ -1,0 +1,607 @@
+{
+  "run": "atlas-paypal-sandbox-live-2026-11-11",
+  "startedAt": "2026-11-11T16:40:15.611Z",
+  "startedAtAz": "Nov 11, 2026, 9:40:15 AM America/Phoenix (MST)",
+  "sandbox": true,
+  "live": false,
+  "connector": "paypal",
+  "mode": "sandbox",
+  "baseUrl": "https://api-m.sandbox.paypal.com",
+  "planner": "rule-based (ANTHROPIC_API_KEY unset for this run)",
+  "receiverMapping": "vendor-acme -> PAYPAL_SANDBOX_RECEIVER_EMAIL",
+  "receiver": "sb-sxbtl53763432@personal.example.com",
+  "amount": "1.00 USD (sandbox test money only)",
+  "connectorName": "paypal",
+  "auditEvents": [
+    {
+      "seq": 1,
+      "timestamp": "2026-11-11T16:40:17.253Z",
+      "event": "incident.detected",
+      "data": {
+        "name": "paypal",
+        "mode": "sandbox",
+        "planner": "rule-based",
+        "source": "manual",
+        "incident": {
+          "id": "c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "connector": "paypal",
+          "scenario": "paypal-payout",
+          "title": "PayPal $1 sandbox payout · simulated request, real execution after approval",
+          "severity": "medium",
+          "status": "open",
+          "source": "manual",
+          "detectedAt": "2026-11-11T16:40:17.253Z"
+        }
+      }
+    },
+    {
+      "seq": 2,
+      "timestamp": "2026-11-11T16:40:17.254Z",
+      "event": "agent.planned",
+      "data": {
+        "name": "paypal",
+        "mode": "sandbox",
+        "planner": "rule-based",
+        "incidentId": "c92dd47a-cdad-47d9-8401-84c47319fa04",
+        "diagnosis": "Simulated payout request. Policy requires human approval; creation and item status polling use real PayPal sandbox APIs. Test money only.",
+        "actions": [
+          {
+            "type": "create",
+            "beneficiaryId": "vendor-acme",
+            "amount": 1,
+            "currency": "USD",
+            "reference": "PAYPAL-DEMO-c92dd47a-cdad-47d9-8401-84c47319fa04",
+            "idempotencyKey": "pp-c92dd47a-cdad-47d9-8401-84c47319fa04"
+          }
+        ],
+        "fallback": false
+      }
+    },
+    {
+      "seq": 3,
+      "timestamp": "2026-11-11T16:40:17.257Z",
+      "event": "policy.evaluated",
+      "data": {
+        "name": "paypal",
+        "mode": "sandbox",
+        "planner": "rule-based",
+        "incidentId": "c92dd47a-cdad-47d9-8401-84c47319fa04",
+        "action": {
+          "type": "create",
+          "beneficiaryId": "vendor-acme",
+          "amount": 1,
+          "currency": "USD",
+          "reference": "PAYPAL-DEMO-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "idempotencyKey": "pp-c92dd47a-cdad-47d9-8401-84c47319fa04"
+        },
+        "policy": {
+          "decision": "escalate",
+          "reasons": [
+            "Irreversible money movement requires human approval at or above the automatic limit"
+          ],
+          "ruleHits": [
+            "spend-limit"
+          ]
+        }
+      }
+    },
+    {
+      "seq": 4,
+      "timestamp": "2026-11-11T16:40:17.258Z",
+      "event": "approval.queued",
+      "data": {
+        "id": "d57dcca9-a045-496e-84d2-bebb58fc2fb7",
+        "incidentId": "c92dd47a-cdad-47d9-8401-84c47319fa04",
+        "connector": "paypal",
+        "action": {
+          "type": "create",
+          "beneficiaryId": "vendor-acme",
+          "amount": 1,
+          "currency": "USD",
+          "reference": "PAYPAL-DEMO-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "idempotencyKey": "pp-c92dd47a-cdad-47d9-8401-84c47319fa04"
+        },
+        "status": "pending",
+        "createdAt": "2026-11-11T16:40:17.258Z"
+      }
+    },
+    {
+      "seq": 5,
+      "timestamp": "2026-11-11T16:40:17.258Z",
+      "event": "incident.updated",
+      "data": {
+        "incidentId": "c92dd47a-cdad-47d9-8401-84c47319fa04",
+        "status": "awaiting_approval"
+      }
+    },
+    {
+      "seq": 7,
+      "timestamp": "2026-11-11T16:40:17.259Z",
+      "event": "approval.requested",
+      "data": {
+        "id": "d57dcca9-a045-496e-84d2-bebb58fc2fb7",
+        "approve": true,
+        "approver": "Joshua Laliberte (sandbox run)",
+        "note": "Authorized one $1.00 USD PayPal sandbox payout for verification on 2026-11-11"
+      }
+    },
+    {
+      "seq": 9,
+      "timestamp": "2026-11-11T16:40:17.259Z",
+      "event": "execution.reserved",
+      "data": {
+        "name": "paypal",
+        "mode": "sandbox",
+        "planner": "rule-based",
+        "payout": {
+          "type": "create",
+          "beneficiaryId": "vendor-acme",
+          "amount": 1,
+          "currency": "USD",
+          "reference": "PAYPAL-DEMO-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "idempotencyKey": "pp-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "id": "reserved:pp-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "status": "pending",
+          "createdAt": "2026-11-11T16:40:17.259Z"
+        }
+      }
+    },
+    {
+      "seq": 10,
+      "timestamp": "2026-11-11T16:40:18.203Z",
+      "event": "execution.completed",
+      "data": {
+        "name": "paypal",
+        "mode": "sandbox",
+        "planner": "rule-based",
+        "payout": {
+          "id": "reserved:pp-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "beneficiaryId": "vendor-acme",
+          "amount": 1,
+          "currency": "USD",
+          "reference": "PAYPAL-DEMO-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "idempotencyKey": "pp-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "createdAt": "2026-11-11T16:40:18.203Z",
+          "status": "pending",
+          "providerStatus": "PENDING",
+          "batchStatus": "PENDING"
+        }
+      }
+    },
+    {
+      "seq": 11,
+      "timestamp": "2026-11-11T16:40:18.203Z",
+      "event": "payout.received",
+      "data": {
+        "name": "paypal",
+        "mode": "sandbox",
+        "planner": "rule-based",
+        "payout": {
+          "id": "DRC79NSTMWMZC",
+          "beneficiaryId": "vendor-acme",
+          "amount": 1,
+          "currency": "USD",
+          "reference": "PAYPAL-DEMO-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "idempotencyKey": "pp-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "createdAt": "2026-11-11T16:40:18.203Z",
+          "status": "pending",
+          "providerStatus": "PENDING",
+          "batchStatus": "PENDING"
+        }
+      }
+    },
+    {
+      "seq": 12,
+      "timestamp": "2026-11-11T16:40:18.203Z",
+      "event": "approval.decided",
+      "data": {
+        "id": "d57dcca9-a045-496e-84d2-bebb58fc2fb7",
+        "incidentId": "c92dd47a-cdad-47d9-8401-84c47319fa04",
+        "connector": "paypal",
+        "action": {
+          "type": "create",
+          "beneficiaryId": "vendor-acme",
+          "amount": 1,
+          "currency": "USD",
+          "reference": "PAYPAL-DEMO-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "idempotencyKey": "pp-c92dd47a-cdad-47d9-8401-84c47319fa04"
+        },
+        "status": "approved",
+        "createdAt": "2026-11-11T16:40:17.258Z",
+        "approver": "Joshua Laliberte (sandbox run)",
+        "note": "Authorized one $1.00 USD PayPal sandbox payout for verification on 2026-11-11",
+        "outcome": "Manual review: PayPal item PENDING; dashboard polls settlement for DRC79NSTMWMZC"
+      }
+    },
+    {
+      "seq": 13,
+      "timestamp": "2026-11-11T16:40:19.557Z",
+      "event": "reconciliation.completed",
+      "data": {
+        "name": "paypal",
+        "mode": "sandbox",
+        "planner": "rule-based",
+        "payout": {
+          "id": "DRC79NSTMWMZC",
+          "beneficiaryId": "vendor-acme",
+          "amount": 1,
+          "currency": "USD",
+          "reference": "PAYPAL-DEMO-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "idempotencyKey": "pp-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "createdAt": "2026-11-11T16:40:17Z",
+          "status": "pending",
+          "providerStatus": "PENDING",
+          "batchStatus": "PENDING"
+        }
+      }
+    },
+    {
+      "seq": 14,
+      "timestamp": "2026-11-11T16:40:38.839Z",
+      "event": "reconciliation.completed",
+      "data": {
+        "name": "paypal",
+        "mode": "sandbox",
+        "planner": "rule-based",
+        "payout": {
+          "id": "DRC79NSTMWMZC",
+          "beneficiaryId": "vendor-acme",
+          "amount": 1,
+          "currency": "USD",
+          "reference": "PAYPAL-DEMO-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "idempotencyKey": "pp-c92dd47a-cdad-47d9-8401-84c47319fa04",
+          "createdAt": "2026-11-11T16:40:17Z",
+          "status": "succeeded",
+          "providerStatus": "SUCCESS",
+          "batchStatus": "PROCESSING",
+          "transactionId": "34H77350B4423192U"
+        }
+      }
+    }
+  ],
+  "auditPath": "/tmp/paypal-sandbox-run-1794415217253-91ad202f-6f23-4904-a78b-82652e0e80b6.jsonl",
+  "auditVerify": {
+    "valid": true
+  },
+  "finishedAt": "2026-11-11T16:40:44.115Z",
+  "finishedAtAz": "Nov 11, 2026, 9:40:44 AM America/Phoenix (MST)",
+  "scenarios": {
+    "oauth": {
+      "name": "OAuth client-credentials token fetch",
+      "result": "PASS",
+      "httpStatus": 200,
+      "tokenType": "REDACTED len=6",
+      "tokenPresent": true,
+      "tokenLength": 97,
+      "expiresInSec": 32313,
+      "endpoint": "https://api-m.sandbox.paypal.com/v1/oauth2/token"
+    },
+    "governed_plan": {
+      "name": "Governed plan + policy (human approval required, autoLimit=0 in PayPal sandbox)",
+      "result": "PASS",
+      "incidentId": "c92dd47a-cdad-47d9-8401-84c47319fa04",
+      "incidentStatusAfterPlan": "awaiting_approval",
+      "diagnosis": "Simulated payout request. Policy requires human approval; creation and item status polling use real PayPal sandbox APIs. Test money only.",
+      "planner": "rule-based",
+      "policyDecision": "escalate",
+      "policyRuleHits": [
+        "spend-limit"
+      ],
+      "policyReasons": [
+        "Irreversible money movement requires human approval at or above the automatic limit"
+      ],
+      "actionType": "create",
+      "amount": 1,
+      "currency": "USD",
+      "beneficiaryId": "vendor-acme",
+      "reference": "PAYPAL-DEMO-c92dd47a-cdad-47d9-8401-84c47319fa04",
+      "idempotencyKey": "pp-c92dd47a-cdad-47d9-8401-84c47319fa04",
+      "approvalId": "d57dcca9-a045-496e-84d2-bebb58fc2fb7",
+      "fundsMovedBeforeApproval": false,
+      "payoutCreatesBeforeApproval": 0
+    },
+    "pre_approve_block": {
+      "name": "Execute the planned payout before approval",
+      "result": "PASS",
+      "outcome": "Blocked: Irreversible money movement requires human approval at or above the automatic limit"
+    },
+    "payout_create": {
+      "name": "Real sandbox payout create after human approval ($1.00 USD)",
+      "result": "PASS",
+      "decideOutcome": "Manual review: PayPal item PENDING; dashboard polls settlement for DRC79NSTMWMZC",
+      "incidentStatus": "manual_review",
+      "payout": {
+        "id": "DRC79NSTMWMZC",
+        "status": "pending",
+        "providerStatus": "PENDING",
+        "batchStatus": "PENDING",
+        "amount": 1,
+        "currency": "USD",
+        "reference": "PAYPAL-DEMO-c92dd47a-cdad-47d9-8401-84c47319fa04",
+        "idempotencyKey": "pp-c92dd47a-cdad-47d9-8401-84c47319fa04",
+        "createdAt": "2026-11-11T16:40:17Z",
+        "transactionId": null
+      }
+    },
+    "item_status_read": {
+      "name": "Item-level status read (batch SUCCESS alone is not treated as paid)",
+      "result": "PASS",
+      "note": "Item transaction_status SUCCESS; Atlas normalized status=succeeded. Batch status recorded separately and was not used as proof of payment.",
+      "polls": [
+        {
+          "attempt": 1,
+          "at": "2026-11-11T16:40:20.466Z",
+          "atAz": "Nov 11, 2026, 9:40:20 AM America/Phoenix (MST)",
+          "atlasStatus": "pending",
+          "atlasProviderStatus": "PENDING",
+          "atlasBatchStatus": "PENDING",
+          "atlasTransactionId": null,
+          "officialHttp": 200,
+          "officialBatchStatus": "PENDING",
+          "officialItemStatus": "PENDING",
+          "officialTransactionId": null,
+          "officialTimeProcessed": null
+        },
+        {
+          "attempt": 2,
+          "at": "2026-11-11T16:40:26.659Z",
+          "atAz": "Nov 11, 2026, 9:40:26 AM America/Phoenix (MST)",
+          "atlasStatus": "pending",
+          "atlasProviderStatus": "PENDING",
+          "atlasBatchStatus": "PROCESSING",
+          "atlasTransactionId": null,
+          "officialHttp": 200,
+          "officialBatchStatus": "PROCESSING",
+          "officialItemStatus": "PENDING",
+          "officialTransactionId": null,
+          "officialTimeProcessed": null
+        },
+        {
+          "attempt": 3,
+          "at": "2026-11-11T16:40:33.610Z",
+          "atAz": "Nov 11, 2026, 9:40:33 AM America/Phoenix (MST)",
+          "atlasStatus": "pending",
+          "atlasProviderStatus": "PENDING",
+          "atlasBatchStatus": "PROCESSING",
+          "atlasTransactionId": null,
+          "officialHttp": 200,
+          "officialBatchStatus": "PROCESSING",
+          "officialItemStatus": "PENDING",
+          "officialTransactionId": null,
+          "officialTimeProcessed": null
+        },
+        {
+          "attempt": 4,
+          "at": "2026-11-11T16:40:40.421Z",
+          "atAz": "Nov 11, 2026, 9:40:40 AM America/Phoenix (MST)",
+          "atlasStatus": "succeeded",
+          "atlasProviderStatus": "SUCCESS",
+          "atlasBatchStatus": "PROCESSING",
+          "atlasTransactionId": "34H77350B4423192U",
+          "officialHttp": 200,
+          "officialBatchStatus": "PROCESSING",
+          "officialItemStatus": "SUCCESS",
+          "officialTransactionId": "34H77350B4423192U",
+          "officialTimeProcessed": "2026-11-11T16:40:34Z"
+        }
+      ],
+      "finalPayout": {
+        "id": "DRC79NSTMWMZC",
+        "status": "succeeded",
+        "providerStatus": "SUCCESS",
+        "batchStatus": "PROCESSING",
+        "transactionId": "34H77350B4423192U",
+        "amount": 1,
+        "currency": "USD",
+        "idempotencyKey": "pp-c92dd47a-cdad-47d9-8401-84c47319fa04"
+      },
+      "official": {
+        "batch_header": {
+          "payout_batch_id": "DRC79NSTMWMZC",
+          "batch_status": "PROCESSING",
+          "time_created": "2026-11-11T16:40:17Z",
+          "sender_batch_header": {
+            "sender_batch_id": "pp-c92dd47a-cdad-47d9-8401-84c47319fa04",
+            "email_subject": "Atlas payout"
+          },
+          "funding_source": "BALANCE",
+          "amount": {
+            "currency": "USD",
+            "value": "1.00"
+          },
+          "fees": {
+            "currency": "USD",
+            "value": "0.25"
+          }
+        },
+        "items": [
+          {
+            "payout_item_id": "3AYHNGULB3HJA",
+            "transaction_id": "34H77350B4423192U",
+            "activity_id": "4TP653410B1113907",
+            "transaction_status": "SUCCESS",
+            "payout_item_fee": {
+              "currency": "USD",
+              "value": "0.25"
+            },
+            "payout_batch_id": "DRC79NSTMWMZC",
+            "payout_item": {
+              "recipient_type": "EMAIL",
+              "amount": {
+                "currency": "USD",
+                "value": "1.00"
+              },
+              "note": "PAYPAL-DEMO-c92dd47a-cdad-47d9-8401-84c47319fa04",
+              "receiver": "sb-sxbtl53763432@personal.example.com",
+              "sender_item_id": "pp-c92dd47a-cdad-47d9-8401-84c47319fa04",
+              "recipient_wallet": "PAYPAL",
+              "purpose": "GOODS"
+            },
+            "time_processed": "2026-11-11T16:40:34Z",
+            "links": [
+              {
+                "href": "https://api.sandbox.paypal.com/v1/payments/payouts-item/3AYHNGULB3HJA",
+                "rel": "item",
+                "method": "GET",
+                "encType": "application/json"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "sender_batch_id_idempotency": {
+      "name": "Duplicate payout denial via sender_batch_id idempotency",
+      "result": "PASS",
+      "rawHttpStatus": 400,
+      "rawErrorName": "USER_BUSINESS_ERROR",
+      "rawErrorMessage": "User business error.",
+      "rawDetails": [
+        {
+          "field": "SENDER_BATCH_ID",
+          "issue": "Batch with given sender_batch_id already exists"
+        }
+      ],
+      "rawDebugId": "ca58ebd787871",
+      "connectorRetry": {
+        "threw": true,
+        "error": "PayPal request: 400"
+      },
+      "note": "A second POST /v1/payments/payouts with the same sender_batch_id must not create a second payout. The connector currently surfaces a non-OK PayPal status as an error rather than returning the existing batch."
+    },
+    "policy_replay_blocked": {
+      "name": "Governed re-execution of the same approved action is blocked (including after restart)",
+      "result": "PASS",
+      "executeAgainOutcome": "Blocked: Irreversible money movement requires human approval at or above the automatic limit; Completed idempotency key cannot be reused; Same beneficiary, amount, currency and reference already paid or pending within 24 hours",
+      "executeAfterRestartOutcome": "Blocked: Irreversible money movement requires human approval at or above the automatic limit; Completed idempotency key cannot be reused; Same beneficiary, amount, currency and reference already paid or pending within 24 hours"
+    },
+    "audit_chain": {
+      "name": "Audit chain verifies",
+      "result": "PASS",
+      "valid": true,
+      "entryCount": 17
+    }
+  },
+  "httpCalls": [
+    {
+      "at": "2026-11-11T16:40:17.638Z",
+      "method": "POST",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/oauth2/token",
+      "status": 200
+    },
+    {
+      "at": "2026-11-11T16:40:18.202Z",
+      "method": "POST",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts",
+      "status": 201
+    },
+    {
+      "at": "2026-11-11T16:40:19.556Z",
+      "method": "GET",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts/DRC79NSTMWMZC",
+      "status": 200
+    },
+    {
+      "at": "2026-11-11T16:40:20.007Z",
+      "method": "GET",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts/DRC79NSTMWMZC",
+      "status": 200
+    },
+    {
+      "at": "2026-11-11T16:40:20.465Z",
+      "method": "GET",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts/DRC79NSTMWMZC",
+      "status": 200
+    },
+    {
+      "at": "2026-11-11T16:40:26.043Z",
+      "method": "GET",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts/DRC79NSTMWMZC",
+      "status": 200
+    },
+    {
+      "at": "2026-11-11T16:40:26.657Z",
+      "method": "GET",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts/DRC79NSTMWMZC",
+      "status": 200
+    },
+    {
+      "at": "2026-11-11T16:40:31.947Z",
+      "method": "GET",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts/DRC79NSTMWMZC",
+      "status": 200
+    },
+    {
+      "at": "2026-11-11T16:40:33.609Z",
+      "method": "GET",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts/DRC79NSTMWMZC",
+      "status": 200
+    },
+    {
+      "at": "2026-11-11T16:40:38.837Z",
+      "method": "GET",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts/DRC79NSTMWMZC",
+      "status": 200
+    },
+    {
+      "at": "2026-11-11T16:40:40.420Z",
+      "method": "GET",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts/DRC79NSTMWMZC",
+      "status": 200
+    },
+    {
+      "at": "2026-11-11T16:40:40.943Z",
+      "method": "GET",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts/DRC79NSTMWMZC",
+      "status": 200
+    },
+    {
+      "at": "2026-11-11T16:40:41.413Z",
+      "method": "POST",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts",
+      "status": 400
+    },
+    {
+      "at": "2026-11-11T16:40:42.765Z",
+      "method": "POST",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts",
+      "status": 400
+    },
+    {
+      "at": "2026-11-11T16:40:43.189Z",
+      "method": "GET",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts/DRC79NSTMWMZC",
+      "status": 200
+    },
+    {
+      "at": "2026-11-11T16:40:43.544Z",
+      "method": "POST",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/oauth2/token",
+      "status": 200
+    },
+    {
+      "at": "2026-11-11T16:40:43.961Z",
+      "method": "GET",
+      "host": "api-m.sandbox.paypal.com",
+      "path": "/v1/payments/payouts/DRC79NSTMWMZC",
+      "status": 200
+    }
+  ],
+  "success": true
+}
